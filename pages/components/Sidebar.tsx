@@ -73,7 +73,7 @@ export const Sidebar = ({
               <div className="flex flex-col">
                 <span className="text-indigo-50 my-0">Azamat Aldabergenov</span>
                 <Link href="/" className="text-indigo-200 text-sm">
-                  Посмотреть профиль
+                  View Profile
                 </Link>
               </div>
             )}
