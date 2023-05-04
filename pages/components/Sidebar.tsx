@@ -7,7 +7,10 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
+import { signOut } from 'next-auth/react';
+
 import { defaultNavItems, NavItem } from "./defaultNavItems";
+import { useSession } from "next-auth/react";
 
 
 type Props = {
@@ -21,7 +24,7 @@ export const Sidebar = ({
    navItems = defaultNavItems,
     setCollapsed 
   }: Props) => {
-
+  const session = useSession();
   const Icon = collapsed ? ChevronDoubleRightIcon : ChevronDoubleLeftIcon;
   return (
     <div
@@ -71,7 +74,7 @@ export const Sidebar = ({
             />
             {!collapsed && (
               <div className="flex flex-col">
-                <span className="text-indigo-50 my-0">Azamat Aldabergenov</span>
+                <span className="text-indigo-50 my-0">{session ? session.data?.user.email : 'Unknown'}</span>
                 <Link href="/" className="text-indigo-200 text-sm">
                   View Profile
                 </Link>
@@ -107,6 +110,19 @@ export const Sidebar = ({
             </ul>
         </nav>
 
+        <div
+          className={cn({
+            "grid place-content-stretch p-4": true,
+          })}
+        >
+          <div className="flex gap-4 items-center h-11 overflow-hidden">
+            <div className="flex flex-col">
+              <Link href="/" onClick={() => {signOut()}} className="text-indigo-200 text-sm">
+                Выйти
+              </Link>
+            </div>
+          </div>
+        </div>
         {/* profile part ... omited for brevity */}
       </div>
     </div>

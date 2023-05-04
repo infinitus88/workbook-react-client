@@ -25,7 +25,7 @@ const SignIn: NextPage = (props): JSX.Element => {
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
         <h1 className="text-3xl font-semibold text-center text-purple-700 underline">
-          Sign in
+          Вход
         </h1>
         <form onSubmit={handleSubmit} className="mt-6">
           <div className="mb-2">
@@ -33,7 +33,7 @@ const SignIn: NextPage = (props): JSX.Element => {
               htmlFor="email"
               className="block text-sm font-semibold text-gray-800"
             >
-              Email
+              Е-почта
             </label>
             <input
               value={userCreds.email}
@@ -49,7 +49,7 @@ const SignIn: NextPage = (props): JSX.Element => {
               htmlFor="password"
               className="block text-sm font-semibold text-gray-800"
             >
-              Password
+              Пароль
             </label>
             <input
               value={userCreds.password}
@@ -61,21 +61,21 @@ const SignIn: NextPage = (props): JSX.Element => {
             />
           </div>
           <Link href="/auth/forget" className="text-xs text-purple-600 hover:underline">
-            Forget Password?
+            Забыли пароль?
           </Link>
           <div className="mt-6">
-            <input type="submit" value="Login" className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600" />
+            <input type="submit" value="Войти" className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600" />
           </div>
         </form>
 
         <p className="mt-8 text-xs font-light text-center text-gray-700">
           {" "}
-          Don't have an account?{" "}
+          Не зарегистрированны?{" "}
           <a
             href="#"
             className="font-medium text-purple-600 hover:underline"
           >
-            Sign up
+            Создать аккаунт
           </a>
         </p>
       </div>
