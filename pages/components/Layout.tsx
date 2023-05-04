@@ -4,11 +4,14 @@ import { Sidebar } from "./Sidebar";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 
 import { useRedux } from "../../redux";
+import { useSession } from "next-auth/react";
 
 
 export const Layout = (props: PropsWithChildren) => {
   const { dispatch, useSelector } = useRedux();
   const [collapsed, setSidebarCollapsed] = useState(false);
+  const session = useSession();
+  console.log(session);
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
