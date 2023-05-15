@@ -2,8 +2,18 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import * as requestToServer from "./authCrud";
 import type { RootState } from "../../types";
 
+const object = [
+  {
+    name: "fjdaskfjdaskl",
+    age: 12312
+  }
+];
+
+
+
 interface AuthState {
   isAuthenticated: boolean;
+  verifCode: string | null;
   userData: {
     id: number,
     username: string,
@@ -15,6 +25,7 @@ interface AuthState {
 
 const initialState: AuthState = {
   isAuthenticated: false,
+  verifCode: null,
   userData: null,
   accessToken: null,
   error: null
@@ -44,6 +55,18 @@ const authSlice = createSlice({
       state.error = null;
     },
 
+    forgetPassword(state, action: PayloadAction<{ email: string }>) {
+      requestToServer.forgetPassword(action.payload)
+      .then((response: { data: { verifCode: string }}) => {
+          const { verifCode } = response.data;
+          state.verifCode = verifCode;
+          state.error = null;
+      })
+      .catch((error: any) => {
+        state.error = "Ошибка при отправки запроса на верификацию";
+      });
+    },
+
     setError(state, action: PayloadAction<string>) {
       state.error = action.payload;
     },
@@ -53,6 +76,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { login, logout, setError, clearError } = authSlice.actions;
+export const { login, logout, forgetPassword, setError, clearError } = authSlice.actions;
 
 export default authSlice.reducer;

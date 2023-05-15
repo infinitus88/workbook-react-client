@@ -46,7 +46,7 @@ export const Sidebar = ({
             "py-4 justify-center": collapsed,
           })}
         >
-          {!collapsed && <span className="whitespace-nowrap">My Logo</span>}
+          {collapsed === false && <span className="whitespace-nowrap">My Logo</span>}
           <button
             className={cn({
               "grid place-content-center": true, // position

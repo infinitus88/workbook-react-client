@@ -4,6 +4,7 @@ export type RootState = {
       username: string,
       email: string
     },
+    verifCode: string,
     accessToken: string,
     isAuthenticated: boolean
   };

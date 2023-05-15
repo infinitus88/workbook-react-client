@@ -17,7 +17,7 @@ const authOptions: NextAuthOptions = {
         const res = await axios.post("/auth/login", {
           email: credentials?.email,
           password: credentials?.password,
-        });
+        })
 
         const user = res.data;
 
@@ -31,6 +31,7 @@ const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: "/auth/signin",
+    // error: "/auth/error"
   },
 };
 

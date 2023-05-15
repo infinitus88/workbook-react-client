@@ -15,13 +15,6 @@ const Home: NextPage = (props) => {
   return (
     <div>
       <Layout {...props} />
-      {/* {session?.user ? (
-        <main className={styles.main}>
-          <button onClick={() => {
-            signIn();
-          }}>Login</button>
-        </main>
-      ) : <Layout {...props} />} */}
     </div>
   );
 };
