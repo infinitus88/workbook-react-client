@@ -5,16 +5,21 @@ import { SessionProvider } from "next-auth/react";
 
 import { store } from "../redux";
 import { useRouter } from "next/router";
+import Layout from '../components/layout/Layout';
 
 
 
 function App({ Component, pageProps }: AppProps) {
-  const router = useRouter();
+  const {asPath} = useRouter();
 
   return (
     <Provider store={store}>
       <SessionProvider session={pageProps.session} >
-        <Component {...pageProps} />
+        {asPath.includes('/auth') ? <Component {...pageProps} /> : (
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        )}
       </SessionProvider>
     </Provider>
   );

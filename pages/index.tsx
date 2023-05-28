@@ -14,14 +14,13 @@ const Home: NextPage = (props) => {
 
   console.log(session);
   return (
-    <Layout>
+    
       <Workbook />
-        {/* <div className="container h-screen">
-          <div className="flex flex-col items-center gap-4">  
-
-          </div>
-        </div> */}
-    </Layout>
+      // {/* <div className="container h-screen">
+      //   <div className="flex flex-col items-center gap-4">
+      //   </div>
+      // </div> */}
+    
     
   );
 };

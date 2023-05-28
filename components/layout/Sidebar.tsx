@@ -8,6 +8,9 @@ import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
 } from '@heroicons/react/24/outline';
+
+import { signOut } from 'next-auth/react';
+import { useSession } from "next-auth/react";
 // import { HashLink } from 'react-router-hash-link';
 
 // add NavItem prop to component prop
@@ -23,11 +26,14 @@ const Sidebar = ({
   shown,
   setCollapsed,
 }: Props) => {
+
+  const session = useSession();
+
   const Icon = collapsed ? ChevronDoubleRightIcon : ChevronDoubleLeftIcon;
   return (
     <div
       className={classNames({
-        'sticky top-0 h-screen bg-indigo-700 text-zinc-50 md:translate-x-0 z-20': true,
+        'sticky top-0 h-screen bg-indigo-700 text-zinc-50 md:sticky md:translate-x-0 z-20': true,
         'transition-all duration-300': true,
         'w-[300px]': !collapsed,
         'w-16': collapsed,
@@ -47,7 +53,7 @@ const Sidebar = ({
             'py-4 justify-center': collapsed,
           })}
         >
-          {!collapsed && <span className="whitespace-nowrap">My Logo</span>}
+          {!collapsed && <span className="whitespace-nowrap">Рабочая тетрадь</span>}
           <button
             className="grid place-content-center hover:bg-indigo-800 w-10 h-10 rounded-full opacity-0 md:opacity-100"
             onClick={() => setCollapsed(!collapsed)}
@@ -60,7 +66,7 @@ const Sidebar = ({
             'grid place-content-stretch p-4 ': true,
           })}
         >
-          <div className="flex gap-4 items-center h-11 overflow-hidden">
+          <div className="flex gap-4 items-center h-15 overflow-hidden">
             <Image
               src={"https://via.placeholder.com/150"}
               height={36}
@@ -70,10 +76,13 @@ const Sidebar = ({
             />
             {!collapsed && (
               <div className="flex flex-col ">
-                <span className="text-indigo-50 my-0">Tom Cook</span>
-                <Link href="/" className="text-indigo-200 text-sm">
-                  View Profile
+                <span className="text-indigo-50 my-0">{session.data ? session.data?.user.email : 'Загрузка...'}</span>
+                <Link href="/profile/edit" className="text-indigo-200 text-sm">
+                  Посмотреть профиль
                 </Link>
+                <div onClick={() => signOut()} className="text-red-200 text-sm cursor-pointer">
+                  Выйти
+                </div>
               </div>
             )}
           </div>
