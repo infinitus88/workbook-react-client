@@ -7,5 +7,14 @@ export type RootState = {
     verifCode: string,
     accessToken: string,
     isAuthenticated: boolean
-  };
+  },
+  user: {
+    userData: {
+      id: number,
+      profileImage: string,
+      username: string,
+      email: string,
+    } | null;
+    error: string | null;
+  }
 };

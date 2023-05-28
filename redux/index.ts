@@ -2,12 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { useMemo } from "react";
 import { RootState } from "../types";
-import authReducer from "./auth/authSlice";
+// import authReducer from "./auth/authSlice";
+import userReducer from "./user/userSlice";
 
 // Configure the Redux store with the auth reducer
 export const store = configureStore({
   reducer: {
-    auth: authReducer,
+    user: userReducer
   },
 });
 

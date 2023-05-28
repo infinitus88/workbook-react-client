@@ -9,6 +9,7 @@ import {
   ChevronDoubleRightIcon,
 } from '@heroicons/react/24/outline';
 
+import { useRedux } from '../../redux';
 import { signOut } from 'next-auth/react';
 import { useSession } from "next-auth/react";
 // import { HashLink } from 'react-router-hash-link';
@@ -28,6 +29,9 @@ const Sidebar = ({
 }: Props) => {
 
   const session = useSession();
+  const {dispatch, useSelector } = useRedux();
+
+  const userData = useSelector((state) => state.user.userData);
 
   const Icon = collapsed ? ChevronDoubleRightIcon : ChevronDoubleLeftIcon;
   return (
@@ -53,7 +57,7 @@ const Sidebar = ({
             'py-4 justify-center': collapsed,
           })}
         >
-          {!collapsed && <span className="whitespace-nowrap">Рабочая тетрадь</span>}
+          {!collapsed && <Link className="whitespace-nowrap" href={'/'}>Рабочая тетрадь</Link>}
           <button
             className="grid place-content-center hover:bg-indigo-800 w-10 h-10 rounded-full opacity-0 md:opacity-100"
             onClick={() => setCollapsed(!collapsed)}
@@ -76,8 +80,8 @@ const Sidebar = ({
             />
             {!collapsed && (
               <div className="flex flex-col ">
-                <span className="text-indigo-50 my-0">{session.data ? session.data?.user.email : 'Загрузка...'}</span>
-                <Link href="/profile/edit" className="text-indigo-200 text-sm">
+                <span className="text-indigo-50 my-0">{userData ? userData.email : 'Загрузка...'}</span>
+                <Link href="/profile/details" className="text-indigo-200 text-sm">
                   Посмотреть профиль
                 </Link>
                 <div onClick={() => signOut()} className="text-red-200 text-sm cursor-pointer">

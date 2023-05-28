@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import Pending from "./Pending";
 import Uploaded from "./Uploaded";
 import ImageForm from "./ImageForm";
+import { useRedux } from "../../redux";
 
-export const EditModal = ({handleHideModal}) => {
+export const EditModal = ({handleHideModal, handleSave}) => {
+  const { dispatch, useSelector } = useRedux();
+  const userData = useSelector((state) => state.user.userData);
   const [isPending, setIsPending] = useState(false);
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(userData?.profileImage);
   const [url, setUrl] = useState(null);
   const [error, setError] = useState(false);
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(userData?.username);
+
+  const handleClickSave = () => {
+    handleSave(userData?.id, username, image)
+    handleHideModal();
+  }
 
   return (
     <div
@@ -37,7 +45,7 @@ export const EditModal = ({handleHideModal}) => {
                 isPending ? <Pending /> : image && url ? <Uploaded image={image} /> : <ImageForm image={image} setImage={setImage} setIsPending={setIsPending} setError={setError} />}
 
             <div className="relative flex w-full flex-wrap items-stretch mb-3">
-              <input type="text" placeholder="Никнейм" className="px-3 py-3 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10" />
+              <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" placeholder="Никнейм" className="px-3 py-3 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10" />
               <span className="z-10 h-full leading-snug font-normal absolute text-center text-slate-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
                 <i className="fas fa-user"></i>
               </span>
@@ -64,7 +72,7 @@ export const EditModal = ({handleHideModal}) => {
             <button
               className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               type="button"
-            // onClick={() => setShowModal(false)}
+            onClick={handleClickSave}
             >
               Сохранить
             </button>
