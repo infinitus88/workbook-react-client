@@ -2,18 +2,19 @@ import { NextPage } from 'next';
 import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { FormEventHandler, useState } from 'react';
+import React, { FormEventHandler, useEffect, useState } from 'react';
 import { useRedux } from '../../redux';
 import { setUser } from '../../redux/user/userSlice';
 
 const SignIn: NextPage = (props): JSX.Element => {
   const router = useRouter();
 
-  const { data: session } = useSession();
-  const { dispatch, useSelector } = useRedux();
-  
   const [userCreds, setUserCreds] = useState({ email: "", password: "" });
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    document.title = 'Вход в аккаунт';
+  });
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();

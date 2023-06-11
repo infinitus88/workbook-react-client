@@ -1,28 +1,25 @@
 import { NextPage } from 'next';
+import axios from '../../lib/axios';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { FormEventHandler, useState } from 'react';
+import React, { FormEventHandler, useEffect, useState } from 'react';
 
 const Register: NextPage = (props): JSX.Element => {
   const router = useRouter();
-  const [userCreds, setUserCreds] = useState({ email: "", password: "", passwordVerif: "" });
+  const [userCreds, setUserCreds] = useState({ email: "", password: "", username: "" });
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    document.title = 'Регистрация';
+  });
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    // const result = await signIn("credentials", {
-    //   email: userCreds.email,
-    //   password: userCreds.password,
-    //   redirect: false,
-    //   callbackUrl: "/",
-    // }).then(res => {
-    //   if (res?.ok) {
-    //     router.push("/");
-    //   } else {
-    //     setErrorMessage("Неверный пароль");
-    //   }
-    // });
+    const res = await axios.post('auth/register', userCreds).then(() => {
+      router.push('/')
+    });
+    
   };
 
   return (
@@ -45,6 +42,22 @@ const Register: NextPage = (props): JSX.Element => {
                 setUserCreds({ ...userCreds, email: target.value })
               }
               type="email"
+              className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            />
+          </div>
+          <div className="mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-semibold text-gray-800"
+            >
+              Никнейм
+            </label>
+            <input
+              value={userCreds.username}
+              onChange={({ target }) =>
+                setUserCreds({ ...userCreds, username: target.value })
+              }
+              type="text"
               className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>

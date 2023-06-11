@@ -22,15 +22,9 @@ const Home: NextPage = (props) => {
       dispatch(setUser({ id, username, email, profileImage }));
     }
   }, [session])
-
+  
   return (
       <Workbook />
-      // {/* <div className="container h-screen">
-      //   <div className="flex flex-col items-center gap-4">
-      //   </div>
-      // </div> */}
-    
-    
   );
 };
 

@@ -37,9 +37,9 @@ const Sidebar = ({
   return (
     <div
       className={classNames({
-        'sticky top-0 h-screen bg-indigo-700 text-zinc-50 md:sticky md:translate-x-0 z-20': true,
+        'h-auto sticky top-0 md:h-screen bg-indigo-700 text-zinc-50 md:sticky md:translate-x-0 z-20': true,
         'transition-all duration-300': true,
-        'w-[300px]': !collapsed,
+        'w-[300px] ': !collapsed,
         'w-16': collapsed,
         '-translate-x-full': !shown,
       })}
@@ -72,7 +72,7 @@ const Sidebar = ({
         >
           <div className="flex gap-4 items-center h-15 overflow-hidden">
             <Image
-              src={"https://via.placeholder.com/150"}
+              src={userData ? userData.profileImage : "https://via.placeholder.com/150"}
               height={36}
               width={36}
               alt="profile image"

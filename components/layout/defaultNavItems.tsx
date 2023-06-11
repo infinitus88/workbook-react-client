@@ -37,10 +37,5 @@ export const defaultNavItems: NavItem[] = [
     href: "#topic1_3",
     icon: null,
   },
-  {
-    label: "Тема 1.4. Плоская система произвольно расположенных сил",
-    href: "#topic1_4",
-    icon: null,
-  },
   
 ];

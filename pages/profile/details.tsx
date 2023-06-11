@@ -6,20 +6,20 @@ import React, { FormEventHandler, useEffect, useState } from 'react';
 import {EditModal} from '../../components/edit/EditModal';
 
 import { useRedux } from '../../redux';
-import { setUser, updateUser } from '../../redux/user/userSlice';
+import { setUser } from '../../redux/user/userSlice';
 import axios from '../../lib/axios';
 
-const SignIn: NextPage = (props): JSX.Element => {
+const Details: NextPage = (props): JSX.Element => {
   const router = useRouter();
   const { data: session } = useSession();
   const { dispatch, useSelector } = useRedux();
-  const [userCreds, setUserCreds] = useState({ email: "", password: "" });
   const [showModal, setShowModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  // const [errorMessage, setErrorMessage] = useState("");
 
   const userData = useSelector((state) => state.user.userData)
 
   useEffect(() => {
+    // Обновление данных пользователя
     if (session) {
       const { id, username, email, profileImage } = session.user;
       dispatch(setUser({ id, username, email, profileImage }));
@@ -27,13 +27,9 @@ const SignIn: NextPage = (props): JSX.Element => {
   }, [session])
 
   const handleSave = async ( id: number, username: string, profileImage: string) => {
-    try{
-      const res = await axios.post('users/update', { id, username, profileImage})
+    const res = await axios.post('users/update', { id, username, profileImage})
 
-      dispatch(setUser(res.data));
-    } catch {
-      console.log('Ошибка');
-    }
+    dispatch(setUser(res.data));
   }
 
   const handleShowEdit = () => {
@@ -94,26 +90,10 @@ const SignIn: NextPage = (props): JSX.Element => {
               {/* {userData ? userData.email : 'Загрузка...'} */}
             </dd>
           </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">
-              Salary
-            </dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              $10,000
-            </dd>
-          </div>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">
-              About
-            </dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              To get social media testimonials like these, keep your customers engaged with your social media accounts by posting regularly yourself
-            </dd>
-          </div>
         </dl>
       </div>
     </div>
   );
 }
 
-export default SignIn;
+export default Details;

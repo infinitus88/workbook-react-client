@@ -14,6 +14,7 @@ const authOptions: NextAuth = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
+        
         const res = await axios.post("/auth/login", {
           email: credentials?.email,
           password: credentials?.password,
