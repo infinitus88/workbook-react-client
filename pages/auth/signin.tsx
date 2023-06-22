@@ -1,21 +1,24 @@
 import { NextPage } from 'next';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { FormEventHandler, useEffect, useState } from 'react';
-import { useRedux } from '../../redux';
-import { setUser } from '../../redux/user/userSlice';
 
 const SignIn: NextPage = (props): JSX.Element => {
+  // класс который позволяет изменять, получать текущий url
   const router = useRouter();
 
+  // Хук для хранения логина и пароля пользователя перед отправкой на сервер
   const [userCreds, setUserCreds] = useState({ email: "", password: "" });
+
+  // Хук для хранения сообщения об ошибке
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     document.title = 'Вход в аккаунт';
   });
 
+  // Метод вызываеться как только нажмете на кнопку "Войти"
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     const result = await signIn("credentials", {

@@ -1,6 +1,4 @@
 import React from "react";
-import { Bars3Icon } from "@heroicons/react/24/outline";
-import classNames from "classnames";
 
 const TextArea = () => {
   return (

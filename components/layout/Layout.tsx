@@ -2,8 +2,13 @@ import classNames from "classnames";
 import React, { PropsWithChildren, useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+
+
 const Layout = (props: PropsWithChildren) => {
+  // Хук который принимает истинное значени если сайдбар закрыт
   const [collapsed, setSidebarCollapsed] = useState(false);
+
+  // Хук который принимает истинное значение если сайдбар скрыт
   const [showSidebar, setShowSidebar] = useState(true);
   return (
     <div
@@ -13,7 +18,7 @@ const Layout = (props: PropsWithChildren) => {
         "grid-cols-sidebar-collapsed": collapsed,
         "transition-[grid-template-columns] duration-300 ease-in-out": true,
       })}
-    > 
+    >
       <Sidebar
         collapsed={collapsed}
         setCollapsed={setSidebarCollapsed}

@@ -15,6 +15,7 @@ export type RootState = {
       username: string,
       email: string,
     } | null;
+    showGuide: boolean;
     error: string | null;
   }
 };

@@ -1,15 +1,9 @@
 import { NextPage } from 'next';
-import { signIn } from 'next-auth/react';
 import React, { FormEventHandler, useState } from 'react';
-import { forgetPassword } from '../../redux/auth/authSlice';
-import { useAppDispatch, useRedux } from '../../redux';
+import { useRedux } from '../../redux';
 
 const Forget: NextPage = (props): JSX.Element => {
   const [userEmail, setUserEmail] = useState("");
-  const { dispatch, useSelector } = useRedux();
-
-  const verifCode = useSelector(state => state.auth.verifCode);
-  console.log(verifCode);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();

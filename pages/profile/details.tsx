@@ -1,8 +1,6 @@
 import { NextPage } from 'next';
-import { signIn, useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { FormEventHandler, useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import React, { useEffect, useState } from 'react';
 import {EditModal} from '../../components/edit/EditModal';
 
 import { useRedux } from '../../redux';
@@ -10,12 +8,14 @@ import { setUser } from '../../redux/user/userSlice';
 import axios from '../../lib/axios';
 
 const Details: NextPage = (props): JSX.Element => {
-  const router = useRouter();
   const { data: session } = useSession();
   const { dispatch, useSelector } = useRedux();
+
+  // хук для отображения модального окна для обновления данных пользователя
   const [showModal, setShowModal] = useState(false);
   // const [errorMessage, setErrorMessage] = useState("");
 
+  // Берем из редакса данные пользователя
   const userData = useSelector((state) => state.user.userData)
 
   useEffect(() => {
@@ -47,7 +47,6 @@ const Details: NextPage = (props): JSX.Element => {
       {/* {showModal && (
         <EditModal />
       )} */}
-    
       {showModal ? <EditModal handleHideModal={handleHideEdit} handleSave={handleSave} /> : null}
       <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-4 place-items-center h-30 px-4 py-5 sm:px-6">
         <img

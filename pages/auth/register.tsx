@@ -1,25 +1,27 @@
 import { NextPage } from 'next';
 import axios from '../../lib/axios';
-import { signIn } from 'next-auth/react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { FormEventHandler, useEffect, useState } from 'react';
 
 const Register: NextPage = (props): JSX.Element => {
+  // класс который позволяет изменять, получать текущий url
   const router = useRouter();
+
+  // Хук с данными пользователя для отправки на сервер
   const [userCreds, setUserCreds] = useState({ email: "", password: "", username: "" });
   const [errorMessage, setErrorMessage] = useState("");
+
 
   useEffect(() => {
     document.title = 'Регистрация';
   });
 
+  // Метод который будет вызываться при нажатии на кнопку "Зарегистрироваться"
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     const res = await axios.post('auth/register', userCreds).then(() => {
       router.push('/')
     });
-    
   };
 
   return (

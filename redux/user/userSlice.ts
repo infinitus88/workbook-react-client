@@ -9,11 +9,14 @@ interface UserState {
     username: string,
     email: string,
   } | null;
+  showGuide: boolean;
   error: string | null;
 };
 
+// Констатка где мы указываем первоночальные значения redux стейтов
 const initialState: UserState = {
   userData: null,
+  showGuide: false,
   error: null
 };
 
@@ -25,6 +28,9 @@ const userSlice = createSlice({
       const { id, username, email, profileImage } = action.payload;
       state.userData = { id, username, email, profileImage };
       state.error = null;
+    },
+    setShowGuide(state, action: PayloadAction<boolean>) {
+      state.showGuide = action.payload;
     },
 
 
@@ -44,6 +50,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, logout } = userSlice.actions;
+export const { setUser, setShowGuide, logout } = userSlice.actions;
 
 export default userSlice.reducer;

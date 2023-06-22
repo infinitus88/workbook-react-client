@@ -6,12 +6,20 @@ import { useRedux } from "../../redux";
 
 export const EditModal = ({handleHideModal, handleSave}) => {
   const { dispatch, useSelector } = useRedux();
+
+  // Получаем данные пользователя из redux
   const userData = useSelector((state) => state.user.userData);
+
+  // Хук который будет принимать значение истинны каждый раз когда идет ожидание
   const [isPending, setIsPending] = useState(false);
+
+  // Хуки для хранения данных пользователя перед отправкой на сервер
   const [image, setImage] = useState(userData?.profileImage);
-  const [url, setUrl] = useState(null);
-  const [error, setError] = useState(false);
   const [username, setUsername] = useState(userData?.username);
+
+  // Хук который будет принимать значение истины при возникновении ошибки на сервере
+  const [error, setError] = useState(false);
+
 
   const handleClickSave = () => {
     handleSave(userData?.id, username, image)
@@ -42,7 +50,7 @@ export const EditModal = ({handleHideModal, handleSave}) => {
           {/*body*/}
           <div className="relative flex-auto">
           {error ? <p className='text-red-600 text-center border-red-600 rounded-lg border-2 bg-red-300 px-4 py-2'>Ошибка на стороне сервера, Обновите страницу и попробуйте еще раз</p> :
-                isPending ? <Pending /> : image && url ? <Uploaded image={image} /> : <ImageForm image={image} setImage={setImage} setIsPending={setIsPending} setError={setError} />}
+                isPending ? <Pending /> : <ImageForm image={image} setImage={setImage} setIsPending={setIsPending} setError={setError} />}
 
             <div className="relative flex w-full flex-wrap items-stretch mb-3">
               <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" placeholder="Никнейм" className="px-3 py-3 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10" />

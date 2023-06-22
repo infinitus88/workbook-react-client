@@ -12,6 +12,8 @@ import {
 import { useRedux } from '../../redux';
 import { signOut } from 'next-auth/react';
 import { useSession } from "next-auth/react";
+import { setShowGuide } from '../../redux/user/userSlice';
+
 // import { HashLink } from 'react-router-hash-link';
 
 // add NavItem prop to component prop
@@ -28,16 +30,18 @@ const Sidebar = ({
   setCollapsed,
 }: Props) => {
 
-  const session = useSession();
-  const {dispatch, useSelector } = useRedux();
+  // dispatch используем для изменения значения showGuid в redux'е, 
+  // а useSelector используем что бы получить данные пользователя
+  const {dispatch, useSelector} = useRedux();
 
+  // Берем данные пользователя из redux'а
   const userData = useSelector((state) => state.user.userData);
 
   const Icon = collapsed ? ChevronDoubleRightIcon : ChevronDoubleLeftIcon;
   return (
     <div
       className={classNames({
-        'h-auto sticky top-0 md:h-screen bg-indigo-700 text-zinc-50 md:sticky md:translate-x-0 z-20': true,
+        'overflow-y-auto h-auto sticky top-0 md:h-screen bg-indigo-700 text-zinc-50 md:sticky md:translate-x-0 z-20': true,
         'transition-all duration-300': true,
         'w-[300px] ': !collapsed,
         'w-16': collapsed,
@@ -83,6 +87,9 @@ const Sidebar = ({
                 <span className="text-indigo-50 my-0">{userData ? userData.email : 'Загрузка...'}</span>
                 <Link href="/profile/details" className="text-indigo-200 text-sm">
                   Посмотреть профиль
+                </Link>
+                <Link onClick={() => dispatch(setShowGuide(true))} href="" className="text-indigo-200 text-sm">
+                  Инструкция по распечатке
                 </Link>
                 <div onClick={() => signOut()} className="text-red-200 text-sm cursor-pointer">
                   Выйти
